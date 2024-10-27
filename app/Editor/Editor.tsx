@@ -4,7 +4,7 @@ import React from "react";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import EditorContextProvider from "./context/EditorContextProvider";
-import EditorComposer from "./context/components/EditorComposer";
+import EditorComposer from "./components/EditorComposer";
 
 const Editor = () => {
   const editor = useEditor({

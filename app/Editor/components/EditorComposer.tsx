@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import ToolBar from "../../ToolBar";
+import ToolBar from "../ToolBar";
 import { EditorContent } from "@tiptap/react";
-import EditorContext from "../EditorContext";
+import EditorContext from "../context/EditorContext";
 
 const EditorComposer = () => {
   const { editor } = useContext(EditorContext);

@@ -28,12 +28,12 @@ const EditorToolbar = () => {
       isActive: editor?.isActive("italic") ?? false,
       canRun: editor?.can().chain().focus().toggleItalic().run() ?? false,
     },
-    // underline: {
-    //   label: <u>U</u>,
-    //   action: () => editor?.chain().focus().toggleUnderline().run(),
-    //   isActive: editor?.isActive("underline"),
-    //   canRun: editor?.can().chain().focus().toggleUnderline().run(),
-    // },
+    underline: {
+      label: <u>U</u>,
+      action: () => editor?.chain().focus().toggleUnderline().run(),
+      isActive: editor?.isActive("underline") ?? false,
+      canRun: editor?.can().chain().focus().toggleUnderline().run() ?? false,
+    },
     strike: {
       label: <s>S</s>,
       action: () => editor?.chain().focus().toggleStrike().run(),
@@ -55,26 +55,29 @@ const EditorToolbar = () => {
     // alignLeft: {
     //   label: "Left Align",
     //   action: () => editor?.chain().focus().setTextAlign("left").run(),
-    //   isActive: editor?.isActive({ textAlign: "left" }),
-    //   canRun: editor?.can().chain().focus().setTextAlign("left").run(),
+    //   isActive: editor?.isActive({ textAlign: "left" }) ?? false,
+    //   canRun: editor?.can().chain().focus().setTextAlign("left").run() ?? false,
     // },
     // alignCenter: {
     //   label: "Center Align",
     //   action: () => editor?.chain().focus().setTextAlign("center").run(),
-    //   isActive: editor?.isActive({ textAlign: "center" }),
-    //   canRun: editor?.can().chain().focus().setTextAlign("center").run(),
+    //   isActive: editor?.isActive({ textAlign: "center" }) ?? false,
+    //   canRun:
+    //     editor?.can().chain().focus().setTextAlign("center").run() ?? false,
     // },
     // alignRight: {
     //   label: "Right Align",
     //   action: () => editor?.chain().focus().setTextAlign("right").run(),
-    //   isActive: editor?.isActive({ textAlign: "right" }),
-    //   canRun: editor?.can().chain().focus().setTextAlign("right").run(),
+    //   isActive: editor?.isActive({ textAlign: "right" }) ?? false,
+    //   canRun:
+    //     editor?.can().chain().focus().setTextAlign("right").run() ?? false,
     // },
     // justify: {
     //   label: "Justify",
     //   action: () => editor?.chain().focus().setTextAlign("justify").run(),
-    //   isActive: editor?.isActive({ textAlign: "justify" }),
-    //   canRun: editor?.can().chain().focus().setTextAlign("justify").run(),
+    //   isActive: editor?.isActive({ textAlign: "justify" }) ?? false,
+    //   canRun:
+    //     editor?.can().chain().focus().setTextAlign("justify").run() ?? false,
     // },
   };
 
@@ -82,16 +85,18 @@ const EditorToolbar = () => {
     <div className="flex flex-wrap gap-2 border border-b-0 p-4">
       {Object.keys(commands).map((commandKey) => {
         const command = commands[commandKey as keyof typeof commands];
-        const variant = buttonVariants({ variant: "outline" });
+        const variant = buttonVariants({
+          variant: command.isActive ? "default" : "secondary",
+        });
         return (
           <Button
             key={commandKey}
             onClick={command.action}
-            disabled={!command.canRun}
+            // disabled={!command.canRun}
             className={classNames({
               [variant]: true,
               active: command.isActive,
-              "opacity-50 cursor-not-allowed": !command.canRun,
+              //   "opacity-50 cursor-not-allowed": !command.canRun,
             })}
           >
             {command.label}
