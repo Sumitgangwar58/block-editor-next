@@ -1,7 +1,8 @@
 import { useContext } from "react";
-import EditorContext from "./context/EditorContext";
-import { Button, buttonVariants } from "@/components/ui/button";
+import EditorContext from "../context/EditorContext";
+import { Button } from "@/components/ui/button";
 import classNames from "classnames";
+import AddImage from "./AddImage";
 
 type commandsT = {
   [key: string]: {
@@ -52,57 +53,54 @@ const EditorToolbar = () => {
       isActive: editor?.isActive("orderedList") ?? false,
       canRun: editor?.can().chain().focus().toggleOrderedList().run() ?? false,
     },
-    // alignLeft: {
-    //   label: "Left Align",
-    //   action: () => editor?.chain().focus().setTextAlign("left").run(),
-    //   isActive: editor?.isActive({ textAlign: "left" }) ?? false,
-    //   canRun: editor?.can().chain().focus().setTextAlign("left").run() ?? false,
-    // },
-    // alignCenter: {
-    //   label: "Center Align",
-    //   action: () => editor?.chain().focus().setTextAlign("center").run(),
-    //   isActive: editor?.isActive({ textAlign: "center" }) ?? false,
-    //   canRun:
-    //     editor?.can().chain().focus().setTextAlign("center").run() ?? false,
-    // },
-    // alignRight: {
-    //   label: "Right Align",
-    //   action: () => editor?.chain().focus().setTextAlign("right").run(),
-    //   isActive: editor?.isActive({ textAlign: "right" }) ?? false,
-    //   canRun:
-    //     editor?.can().chain().focus().setTextAlign("right").run() ?? false,
-    // },
+    alignLeft: {
+      label: "Left Align",
+      action: () => editor?.chain().focus().setTextAlign("left").run(),
+      isActive: editor?.isActive({ textAlign: "left" }) ?? false,
+      canRun: editor?.can().chain().focus().setTextAlign("left").run() ?? false,
+    },
+    alignCenter: {
+      label: "Center Align",
+      action: () => editor?.chain().focus().setTextAlign("center").run(),
+      isActive: editor?.isActive({ textAlign: "center" }) ?? false,
+      canRun:
+        editor?.can().chain().focus().setTextAlign("center").run() ?? false,
+    },
+    alignRight: {
+      label: "Right Align",
+      action: () => editor?.chain().focus().setTextAlign("right").run(),
+      isActive: editor?.isActive({ textAlign: "right" }) ?? false,
+      canRun:
+        editor?.can().chain().focus().setTextAlign("right").run() ?? false,
+    },
     // justify: {
     //   label: "Justify",
     //   action: () => editor?.chain().focus().setTextAlign("justify").run(),
     //   isActive: editor?.isActive({ textAlign: "justify" }) ?? false,
     //   canRun:
     //     editor?.can().chain().focus().setTextAlign("justify").run() ?? false,
-    // },
+    //
   };
 
   return (
     <div className="flex flex-wrap gap-2 border border-b-0 p-4">
       {Object.keys(commands).map((commandKey) => {
         const command = commands[commandKey as keyof typeof commands];
-        const variant = buttonVariants({
-          variant: command.isActive ? "default" : "secondary",
-        });
         return (
           <Button
             key={commandKey}
             onClick={command.action}
-            // disabled={!command.canRun}
+            variant={command.isActive ? "secondary" : "ghost"}
+            disabled={!command.canRun}
             className={classNames({
-              [variant]: true,
-              active: command.isActive,
-              //   "opacity-50 cursor-not-allowed": !command.canRun,
+              "opacity-50 cursor-not-allowed": !command.canRun,
             })}
           >
             {command.label}
           </Button>
         );
       })}
+      <AddImage />
     </div>
   );
 };

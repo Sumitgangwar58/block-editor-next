@@ -3,8 +3,8 @@ import EditorContext from "./EditorContext";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
-import TextAlign from "@tiptap/extension-text-align";
-import Image from "@tiptap/extension-image";
+import { ImagePlugin } from "../components/plugins/ImagePlugin";
+import { TextAlignPlugin } from "../components/plugins/TextAlignPlugin";
 
 interface EditorContextProviderI {
   children: React.ReactNode;
@@ -13,9 +13,14 @@ interface EditorContextProviderI {
 const EditorContextProvider = ({ ...props }: EditorContextProviderI) => {
   const { children } = props;
   const editor = useEditor({
-    extensions: [StarterKit, Underline, TextAlign, Image],
+    extensions: [StarterKit, Underline, TextAlignPlugin, ImagePlugin],
+    onDrop: function () {
+      console.log("drop");
+    },
     content: "<p>Hello World! 🌎️</p>",
+    immediatelyRender: false,
   });
+
   return (
     <EditorContext.Provider
       value={{
