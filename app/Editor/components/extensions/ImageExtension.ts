@@ -1,6 +1,6 @@
 import Image from "@tiptap/extension-image";
 
-export const ImagePlugin = Image.configure({
+export const ImageExtension = Image.configure({
   HTMLAttributes: {
     allowBase64: true,
     inline: true,
